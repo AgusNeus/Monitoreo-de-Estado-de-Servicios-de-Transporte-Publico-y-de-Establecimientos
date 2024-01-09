@@ -1,0 +1,24 @@
+{{#partial "contenido" }}
+    <link rel="stylesheet" href="/css/confirmarDatos.css">
+    <!-- Contenido principal de tu página -->
+    <title>Confirmación</title>
+
+    <div class="container">
+        <h3>¡Ha subido los siguientes datos!</h3>
+
+        {{#each miDiccionario}}
+            <div class="data-item">
+                <h2>{{@key}}</h2>
+                <ul class="data-list">
+                    {{#each this}}
+                        <li><strong>{{@key}}:</strong> {{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        {{/each}}
+
+
+
+    </div>
+{{/partial}}
+{{> templates/base }}

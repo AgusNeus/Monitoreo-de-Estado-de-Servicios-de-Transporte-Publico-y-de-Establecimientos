@@ -1,0 +1,195 @@
+/* Estilos para el fondo de la página completa */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "DM Sans", sans-serif;
+    background: #577399 !important; /* Color de fondo azul con !important */
+    width: 100%; /* Ancho al 100% para que sea responsive */
+    height: auto; /* Altura automática para adaptarse al contenido */
+
+}
+
+/* Estilos para la barra de navegación */
+
+.navbar {
+    width: 100%;
+    background: #BDD5EA; /* Color de fondo de la barra de navegación */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    padding: 20px;
+    min-height: 56px; /* Asegura una altura mínima */
+}
+
+/* Estilo del logotipo */
+.logo img {
+    width: 119.627px;
+    height: 69.061px;
+    transform: rotate(-0.311deg);
+    flex-shrink: 0;
+    cursor: pointer; /* Cambio del cursor a "mano" para indicar clicabilidad */
+}
+
+/* Estilos para el menú de navegación */
+.menu ul,
+.extra-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+}
+
+.menu ul li,
+.extra-options ul li {
+    margin-right: 30px;
+}
+
+.menu ul li:last-child,
+.extra-options ul li:last-child {
+    margin-right: 0;
+}
+
+/* Estilos para los enlaces de menú */
+.menu a,
+.extra-options a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.menu a:hover,
+.extra-options a:hover {
+    text-decoration: underline;
+}
+
+/* Alineación a la derecha para las opciones adicionales */
+.extra-options {
+    margin-left: auto;
+}
+
+.menu-toggle-label {
+    display: block; /* Mostrar el ícono de las barras */
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px 30px; /* Ajusta el margen derecho aquí */
+}
+.menu-toggle-label span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #000;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* Cambio de las líneas a una X al hacer clic */
+#mobhub-dropdown-toggle:checked + .mobhub-menu .menu-toggle-label span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+#mobhub-dropdown-toggle:checked + .mobhub-menu .menu-toggle-label span:nth-child(2) {
+    opacity: 0;
+}
+
+#mobhub-dropdown-toggle:checked + .mobhub-menu .menu-toggle-label span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Mostrar el menú hamburguesa en pantallas pequeñas */
+@media (max-width: 768px) {
+    .menu-toggle-label {
+        display: block;
+    }
+
+    .menu ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        background-color: rgba(189, 213, 234, 0.8); /* Cambia el valor de fondo a uno más transparente */
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .menu ul.active {
+        display: flex;
+    }
+
+    .menu ul li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .menu ul li:last-child {
+        margin-bottom: 0;
+    }
+}
+/* Estilos para ocultar el input de tipo checkbox */
+#mobhub-dropdown-toggle {
+    display: none;
+}
+
+/* Estilos para el contenedor del menú */
+.mobhub-menu {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilos para la imagen o elemento que activa el menú */
+.mobhub-menu img {
+    cursor: pointer;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #BDD5EA;
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 10px 0;
+    list-style: none;
+}
+
+/* Estilos para los elementos del menú */
+.dropdown-menu li {
+    margin: 0;
+}
+
+/* Estilos para los enlaces del menú */
+.dropdown-menu a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+    padding: 5px 0;
+}
+
+/* Mostrar el menú desplegable al pasar el mouse sobre el contenedor */
+.mobhub-menu:hover .dropdown-menu {
+    display: block;
+}
+
+.c-item {
+    height: 700px;
+}
+
+.c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #577399;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+}

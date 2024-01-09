@@ -1,0 +1,127 @@
+{{#partial "contenido" }}
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" type="text/css" href="/css/datosExtraUsuario.css">
+
+    <div class="container">
+        <div class="login-box">
+            <h2>Completa tus datos</h2>
+            <form id="completarDatosForm" action="/completar-datos" method="POST">
+                <div class="input-box">
+                    <!-- Selector de Provincia -->
+                    <label for="provincia">Provincia</label>
+                    <select id="provincia" name="provincia">
+                        {{#each provincias}}
+                            <option value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Selector de Municipio -->
+                    <label for="municipio">Municipio</label>
+                    <select id="municipio" name="municipio">
+                        <!-- Opciones de municipios se cargarán dinámicamente -->
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Selector de Localidad -->
+                    <label for="localidad">Localidad</label>
+                    <select id="localidad" name="localidad">
+                        <!-- Opciones de localidades se cargarán dinámicamente -->
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Campo de Teléfono -->
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono">
+                </div>
+                <div class="input-box">
+                    <label for="forma-notificacion">Forma de Notificación</label>
+                    <select id="forma-notificacion" name="forma-notificacion">
+                        <option value="Cuando sucede">Alertar cuando sucede un incidente</option>
+                        <option value="Sin apuro">Sin apuro (seleccionar franja horaria)</option>
+                    </select>
+                </div>
+                <div class="input-box" id="horario-container" style="display: none;">
+                    <label for="horario">Horario</label>
+                    <select id="horario" name="horario">
+                        <option value="00:00">12:00 AM</option>
+                        <option value="01:00">01:00 AM</option>
+                        <option value="02:00">02:00 AM</option>
+                        <option value="03:00">03:00 AM</option>
+                        <option value="04:00">04:00 AM</option>
+                        <option value="05:00">05:00 AM</option>
+                        <option value="06:00">06:00 AM</option>
+                        <option value="07:00">07:00 AM</option>
+                        <option value="08:00">08:00 AM</option>
+                        <option value="09:00">09:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">01:00 PM</option>
+                        <option value="14:00">02:00 PM</option>
+                        <option value="15:00">03:00 PM</option>
+                        <option value="16:00">04:00 PM</option>
+                        <option value="17:00">05:00 PM</option>
+                        <option value="18:00">06:00 PM</option>
+                        <option value="19:00">07:00 PM</option>
+                        <option value="20:00">08:00 PM</option>
+                        <option value="21:00">09:00 PM</option>
+                        <option value="22:00">10:00 PM</option>
+                        <option value="23:00">11:00 PM</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <!-- Selector de Medio de Notificación -->
+                    <label for="medio-notificacion">Medio de Notificación</label>
+                    <select id="medio-notificacion" name="medio-notificacion">
+                        <option value="Whatsapp">WhatsApp</option>
+                        <option value="Email">Email</option>
+                    </select>
+                </div>
+                <!-- Botón de Guardar con confirmación -->
+                <button type="button" onclick="confirmarGuardar()">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmarGuardarModal" tabindex="-1" aria-labelledby="confirmarGuardarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarGuardarModalLabel">Confirmación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas completar tus datos?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarFormulario()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("forma-notificacion").addEventListener("change", function() {
+            var horarioContainer = document.getElementById("horario-container");
+            if (this.value === "Sin apuro") {
+                horarioContainer.style.display = "block";
+            } else {
+                horarioContainer.style.display = "none";
+            }
+        });
+
+        function confirmarGuardar() {
+            const confirmarGuardarModal = new bootstrap.Modal(document.getElementById('confirmarGuardarModal'), { keyboard: false });
+            confirmarGuardarModal.show();
+        }
+
+        function enviarFormulario() {
+            document.getElementById("completarDatosForm").submit();
+        }
+    </script>
+    <script src="/js/datosExtraUsuario.js"></script>
+{{/partial}}
+{{> templates/base }}

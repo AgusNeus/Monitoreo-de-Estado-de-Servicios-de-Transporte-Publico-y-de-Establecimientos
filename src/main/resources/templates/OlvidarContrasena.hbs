@@ -1,0 +1,35 @@
+{{#partial "contenido" }}
+    <title>Olvidaste tu contrasena</title>
+    <link rel="stylesheet" href="/css/OlvidarContrasena.css">
+<!-- Contenido principal de tu página -->
+<div class="container">
+    <div class="password-reset-box">
+        <h2>Recuperar Contraseña</h2>
+        <p>Ingresa tu dirección de correo electrónico para restablecer tu contraseña.</p>
+        <form>
+            <div class="input-box">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="Escribe tu correo electrónico" required>
+            </div>
+            <button type="button" id="enviarCorreo">Enviar Correo de Recuperación</button>
+        </form>
+        <p><a href="/inicio">¿Ya tienes una cuenta? Inicia sesión</a></p>
+    </div>
+</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const enviarCorreoButton = document.getElementById("enviarCorreo");
+
+            enviarCorreoButton.addEventListener("click", function() {
+                alert("El correo de recuperación se ha enviado.");
+            });
+        });
+    </script>
+<!-- Scripts de Bootstrap y otros recursos -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+<!--<script src="js/generales.js"></script>   puede o no puede servir-->
+{{/partial}}
+{{> templates/baseSinNavBar }}

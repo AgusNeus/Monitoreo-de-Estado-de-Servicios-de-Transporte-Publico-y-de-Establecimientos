@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #577399;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    margin: 0;
+}
+
+input[type='text'],
+textarea {
+    width: calc(100% - 20px);
+}
+
+select {
+    width: 100%;
+    border-color: transparent;
+}
+
+/* Estilo común para los placeholders de los campos de texto y textarea */
+::placeholder {
+    font-family: Arial, sans-serif;
+    font-size: 16px; /* Mismo tamaño de fuente para placeholders */
+    letter-spacing: 0.5px;
+    /* Otros estilos, si es necesario */
+}
+
+textarea,
+select,
+input[type="text"] {
+    border: 1px solid #577399;
+    outline: none;
+    padding: 10px;
+    font-size: 16px; /* Mismo tamaño de fuente para campos de texto y textarea */
+    max-width: 600px;
+    resize: none;
+    border-radius: 20px;
+}
+
+.container {
+    text-align: center;
+}
+
+.report-incident-box {
+    background-color: #BDD5EA;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin: 0 auto; /* Corrección para centrar horizontalmente */
+    margin-top: 56px;
+}
+
+.report-incident-box h2 {
+    color: #495867;
+}
+
+.input-section {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+    padding: 10px;
+    max-width: 400px;
+}
+
+.input-section label {
+    font-weight: bold;
+    text-align: left;
+}
+
+select[multiple] {
+    height: auto;
+}
+
+.button-section button {
+    background-color: #3A7BBE;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-section button:hover {
+    background-color: #295d9f;
+}
+
+.text-box {
+    width: 291px;
+    height: 39px;
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: #F7F7FF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}

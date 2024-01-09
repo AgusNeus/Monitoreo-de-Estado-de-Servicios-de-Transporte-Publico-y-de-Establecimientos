@@ -1,0 +1,72 @@
+{{#partial "contenido" }}
+    <link rel="stylesheet" href="/css/landingPage.css">
+    <title>Home</title>
+
+    <main>
+    <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active c-item">
+                <img src="https://images.unsplash.com/photo-1603989872223-0dc0599db163?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     class="d-block w-100 c-img" alt="Slide 1">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase"></p>
+                    <h1 class="display-1 fw-bolder text-capitalize">Incidentes</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="reportar-button">Reportar</button>
+                </div>
+            </div>
+            <div class="carousel-item c-item">
+                <img src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     class="d-block w-100 c-img" alt="Slide 2">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="text-uppercase fs-3 mt-5"></p>
+                    <p class="display-1 fw-bolder text-capitalize">Rankings</p>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="visualizar-button" data-bs-toggle="modal">Visualizar</button>
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item c-item">
+                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                     class="d-block w-100 c-img" alt="Slide 3">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="text-uppercase fs-3 mt-5"></p>
+                    <p class="display-1 fw-bolder text-capitalize">Comunidades</p>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="gestionar-button" data-bs-toggle="modal"
+                            data-bs-target="#booking-modal">Gestionar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    </main>
+    <script>
+        document.getElementById('reportar-button').addEventListener('click', function() {
+            window.location.href = '/incidentes/reportar';
+        });
+    </script>
+    <script>
+        document.getElementById('visualizar-button').addEventListener('click', function() {
+            window.location.href = '/rankings';
+        });
+    </script>
+    <script>
+        document.getElementById('gestionar-button').addEventListener('click', function() {
+            window.location.href = '/comunidades/gestionar';
+        });
+    </script>
+{{/partial}}
+{{> templates/base }}

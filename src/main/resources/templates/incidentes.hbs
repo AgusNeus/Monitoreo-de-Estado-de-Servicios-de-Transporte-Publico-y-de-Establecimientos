@@ -1,0 +1,188 @@
+{{#partial "contenido"}}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <title>Incidentes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/incidentes.css">
+
+    <!-- Contenido principal de tu página -->
+    <div class="incidents-box container">
+        <h1 class="text-center">Incidentes</h1>
+
+        <div class="filtro-box mb-3">
+            <select id="filtro" class="form-control">
+                <option value="" disabled selected>Filtrar por...</option>
+                <option value="nombre">Nombre</option>
+                <option value="servicio">Servicio</option>
+                <option value="establecimiento">Establecimiento</option>
+                <option value="comunidad">Comunidad</option>
+            </select>
+            <input type="text" id="busqueda" class="form-control" placeholder="Buscar..." />
+        </div>
+
+        <div class="card-container d-flex flex-wrap justify-content-between">
+            {{#each incidentes}}
+                {{#unless this.fechaHoraCierre}}
+                    <div class="card mb-4" style="width: 18rem;" data-id="{{this.id}}">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="/incidentes/{{this.token}}">{{this.nombre}}</a></h5>
+                            <p class="card-text"><strong>Servicio:</strong> {{this.servicio.nombre}}</p>
+                            <p class="card-text"><strong>Establecimiento:</strong> {{this.establecimiento.nombre}}</p>
+                            <p class="card-text"><strong>Comunidad:</strong> {{this.comunidad.nombre}}</p>
+                            <p class="card-text"><strong>Fecha de Apertura:</strong> {{this.fechaHoraApertura}}</p>
+                            <p class="card-text"><strong>Fecha de Cierre:</strong> {{#if this.fechaHoraCierre}}{{this.fechaHoraCierre}}{{else}}N/A{{/if}}</p>
+                            <div class="checkbox-container">
+                                <label><strong>Cerrar Incidente:</strong></label>
+                                {{#if this.fechaHoraCierre}}
+                                    <span class="status badge badge-secondary">Cerrado</span>
+                                {{else}}
+                                    <input type="checkbox" class="cerrar-checkbox form-check-input" data-id="{{this.id}}">
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/unless}}
+            {{/each}}
+        </div>
+
+        <button id="cerrarSeleccionados" class="btn btn-primary">Cerrar Seleccionados</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Scripts de Bootstrap y otros recursos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar clic en el botón "Cerrar Seleccionados"
+            document.getElementById('cerrarSeleccionados').addEventListener('click', function() {
+                const selectedIncidents = [];
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+                checkboxes.forEach(function(checkbox) {
+                    const incidentId = checkbox.getAttribute('data-id');
+                    selectedIncidents.push(incidentId);
+                });
+
+                if (selectedIncidents.length > 0) {
+                    // Enviar una solicitud al servidor para cambiar el estado de los incidentes a "Cerrado"
+                    // Ejemplo con fetch:
+                    fetch('/cerrar-incidentes', {
+                        method: 'POST',
+                        body: JSON.stringify(selectedIncidents),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Actualizar el estado de las filas en la tabla a "Cerrado"
+                                    selectedIncidents.forEach(incidentId => {
+                                        const card = document.querySelector(`.card[data-id="${incidentId}"`);
+                                        if (card) {
+                                            const checkbox = card.querySelector('input[type="checkbox"]');
+                                            if (!card.querySelector('span')) {
+                                                const span = document.createElement('span');
+                                                span.textContent = 'Cerrado';
+                                                card.querySelector('.checkbox-container').appendChild(span);
+                                                checkbox.remove();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                }
+
+            });
+
+            // Manejar cambio en el elemento <select> con ID "filtro"
+            const filtroSelect = document.getElementById('filtro');
+            const busquedaInput = document.getElementById('busqueda');
+
+            filtroSelect.addEventListener('change', function() {
+                filtrarIncidentes();
+            });
+
+            busquedaInput.addEventListener('input', function() {
+                filtrarIncidentes();
+            });
+
+            function filtrarIncidentes() {
+                const filtroValor = filtroSelect.value.toLowerCase();
+                const busquedaValor = busquedaInput.value.toLowerCase();
+
+                document.querySelectorAll('.card').forEach(function (card) {
+                    const celda = card.querySelector(`p:nth-child(${getIndiceColumna(filtroValor)})`);
+                    const status = card.querySelector('.status');
+
+                    if (filtroValor === 'cerrado') {
+                        const statusSpan = card.querySelector('.status');
+                        if (card.getAttribute("fechaHoraCierre"))
+                            card.style.display = 'block'
+                        else
+                            card.style.display = 'none'
+                    } else {
+                        // Otros tipos de filtrado
+                        if (coincideBusqueda(celda.textContent, busquedaValor)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+
+                });
+            }
+
+
+
+
+
+
+
+
+            function coincideBusqueda(texto, busqueda) {
+                return texto.toLowerCase().includes(busqueda);
+
+            }
+
+
+            function getIndiceColumna(filtro) {
+                switch (filtro) {
+                    case 'nombre':
+                        return 1;
+                    case 'servicio':
+                        return 2;
+                    case 'establecimiento':
+                        return 3;
+                    case 'comunidad':
+                        return 4;
+                    case 'abierto':
+                        return 5;
+                    case 'cerrado':
+                        return 5;
+                    default:
+                        return 0;
+                }
+            }
+        });
+
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+            const formattedDate = new Date(dateString).toLocaleDateString('es-ES', options);
+            return formattedDate;
+        }
+    </script>
+{{/partial}}
+{{> templates/base }}

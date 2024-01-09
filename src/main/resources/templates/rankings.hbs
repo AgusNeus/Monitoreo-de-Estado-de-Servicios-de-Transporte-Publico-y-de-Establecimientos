@@ -1,0 +1,111 @@
+{{#partial "contenido" }}
+    <link rel="stylesheet" href="/css/rankings.css">
+    <title>Rankings</title>
+    <!-- Contenido principal de tu página -->
+    <main class="flex-shrink-0">
+        <div class="incidents-box container">
+            <h1 class="text-center">Rankings</h1>
+
+            <!-- Contenedor para la lista de rankings -->
+            <div id="rankings-list" class="bg-light-blue p-3 rounded" style="max-height: 400px; overflow-y: auto;">
+                <div class="report-incident-box"> <!-- Agregado el contenedor de la clase .report-incident-box -->
+                    <label for="rankingOptions">Elegir Ranking:</label>
+                    <select id="rankingOptions" class="form-select">
+                        <option value="Ranking 1">Mayor Cantidad de Reportes</option>
+                        <option value="Ranking 2">Mayor Grado de Impacto</option>
+                        <option value="Ranking 3">Mayor Promedio de Cierre</option>
+                    </select>
+
+                    <ul class="list-unstyled">
+                        <!-- Elementos de la lista se llenarán aquí dinámicamente con JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts de Bootstrap y otros recursos -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+        <script>
+            function llenarListaRanking(data) {
+                var lista = document.getElementById("rankings-list").getElementsByTagName('ul')[0];
+                lista.innerHTML = ''; // Limpiar la lista antes de agregar elementos
+
+                var selectedRanking = obtenerOpcionSeleccionada();
+
+                for (var i = 0; i < data.rankings2.length; i++) {
+                    var ranking = data.rankings2[i];
+
+                    if (ranking.rankingType === selectedRanking) {
+                        var listItem = document.createElement('li');
+                        var content = document.createElement('span');
+
+                        // Modificar el contenido según el tipo de ranking
+                        if (ranking.rankingType === "Ranking 2") {
+                            // Mostrar el número del puesto a la izquierda y a la derecha el nombre del incidente
+                            content.className = 'black-number';
+                            content.innerHTML = ranking.puesto + ' - ' + ranking.nombre_incidente;
+                        } else {
+                            // Mostrar el número del puesto y a su derecha el nombre de la entidad
+                            content.innerHTML = ranking.puesto + ' - ' + ranking.nombre_entidad;
+                        }
+
+                        listItem.appendChild(content);
+
+                        lista.appendChild(listItem);
+                    }
+                }
+            }
+
+            function obtenerOpcionSeleccionada() {
+                var selectElement = document.getElementById("rankingOptions");
+                return selectElement.options[selectElement.selectedIndex].value;
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                llenarListaRanking({
+                    "rankings2": [
+                        { "rankingType": "Ranking 1", "puesto": 1, "nombre_entidad": "Coto" },
+                        { "rankingType": "Ranking 1", "puesto": 2, "nombre_entidad": "Apple" },
+                        { "rankingType": "Ranking 1", "puesto": 3, "nombre_entidad": "Samsung" },
+                        { "rankingType": "Ranking 1", "puesto": 4, "nombre_entidad": "Banco Santander " },
+                        { "rankingType": "Ranking 1", "puesto": 5, "nombre_entidad": "Banco BBVA" },
+                        { "rankingType": "Ranking 2", "puesto": 1, "nombre_incidente": "Se rompio el ascensor " },
+                        { "rankingType": "Ranking 2", "puesto": 2, "nombre_incidente": "Se rompio la escalera " },
+                        { "rankingType": "Ranking 2", "puesto": 3, "nombre_incidente": "No funciona el molinete " },
+                        { "rankingType": "Ranking 2", "puesto": 4, "nombre_incidente": "Luz rota " },
+                        { "rankingType": "Ranking 2", "puesto": 5, "nombre_incidente": "Vidrios en el piso " },
+                        { "rankingType": "Ranking 3", "puesto": 1, "nombre_entidad": "Banco Santander " },
+                        { "rankingType": "Ranking 3", "puesto": 2, "nombre_entidad": "Banco BBVA " },
+                        { "rankingType": "Ranking 3", "puesto": 3, "nombre_entidad": "Coto " },
+                        { "rankingType": "Ranking 3", "puesto": 4, "nombre_entidad": "Apple " },
+                        { "rankingType": "Ranking 3", "puesto": 5, "nombre_entidad": "Banco Santander " }
+                    ]
+                });
+            });
+
+            document.getElementById('rankingOptions').addEventListener('change', function () {
+                llenarListaRanking({
+                    "rankings2": [
+                        { "rankingType": "Ranking 1", "puesto": 1, "nombre_entidad": "Coto" },
+                        { "rankingType": "Ranking 1", "puesto": 2, "nombre_entidad": "Apple" },
+                        { "rankingType": "Ranking 1", "puesto": 3, "nombre_entidad": "Samsung" },
+                        { "rankingType": "Ranking 1", "puesto": 4, "nombre_entidad": "Banco Santander" },
+                        { "rankingType": "Ranking 1", "puesto": 5, "nombre_entidad": "Banco BBVA" },
+                        { "rankingType": "Ranking 2", "puesto": 1, "nombre_incidente": "Se rompio el ascensor" },
+                        { "rankingType": "Ranking 2", "puesto": 2, "nombre_incidente": "Se rompio la escalera" },
+                        { "rankingType": "Ranking 2", "puesto": 3, "nombre_incidente": "No funciona el molinete" },
+                        { "rankingType": "Ranking 2", "puesto": 4, "nombre_incidente": "Luz rota" },
+                        { "rankingType": "Ranking 2", "puesto": 5, "nombre_incidente": "Vidrios en el piso" },
+                        { "rankingType": "Ranking 3", "puesto": 1, "nombre_entidad": "Banco Santander" },
+                        { "rankingType": "Ranking 3", "puesto": 2, "nombre_entidad": "Banco BBVA" },
+                        { "rankingType": "Ranking 3", "puesto": 3, "nombre_entidad": "Coto" },
+                        { "rankingType": "Ranking 3", "puesto": 4, "nombre_entidad": "Apple" },
+                        { "rankingType": "Ranking 3", "puesto": 5, "nombre_entidad": "Samsung" }
+                    ]
+                });
+            });
+        </script>
+    </main>
+{{/partial}}
+{{> templates/base }}

@@ -1,0 +1,160 @@
+{{#partial "contenido" }}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portal</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+
+        <style>
+            .center-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .contenedor {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <link rel="stylesheet" href="/css/portalCargaDeDatos.css">
+    <body>
+    <div class="modal fade" id="confirmarModal" tabindex="-1" aria-labelledby="confirmarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarModalLabel">Confirmar Subida</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="mensaje-confirmacion"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="subirArchivo()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="upload-box">
+            <h2>Portal de Carga de Datos</h2>
+            <h5>Entidades prestadoras y organismos de control</h5>
+            <form id="archivoForm" enctype="multipart/form-data">
+                <div class="input-box">
+                    <input type="file" id="archivo" accept=".csv" style="display: none;">
+                    <label for="archivo" id="nombre-archivo">Archivo seleccionado: Ningún archivo seleccionado</label>
+                    <button type="button" onclick="document.getElementById('archivo').click();">Seleccionar su archivo .csv</button>
+                </div>
+                <!-- Cambié el type de button a submit -->
+                <input type="submit" class="subir-button" value="Subir archivo">
+            </form>
+        </div>
+    </div>
+
+    <div class="contenedor">
+        <div class="container" style="margin-left: -10%;">
+            <div class="upload-box">
+                <h2>Archivo de ejemplo</h2>
+                <div class="center-container" style="justify-content: left">
+                    <h6>1,Gerardo,Martines,gerardomartinez@gmail.com,Coto,EntidadPrestadora</h6>
+                    <h6>2,Ricardo,Contreras,ricardocontreras@gmail.com,BancoSantander,EntidadPrestadora</h6>
+                    <h6>3,Andres,Necochea,andresnecochea@gmail.com,Jumbo,EntidadPrestadora</h6>
+                    <h6>4,Humberto,Tevez,humbertotevez@gmail.com,OrganismoSupermercados,OrganismoControl</h6>
+                    <h6>5,Rafael,Gutierrez,rafagutierrez@gmail.com,OrganismoBancos,OrganismoControl</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="margin-right: -10%;">
+            <div class="upload-box">
+                <div class="center-container">
+                    <h3>Detalle de los campos</h3>
+                    <h6>Campo 1: Id. Debe ser un numero autoincremental, no se deben repetir.</h6>
+                    <h6>Campo 2: Nombre. El nombre del operador encargado de la entidad u organismo de control.</h6>
+                    <h6>Campo 3: Apellido. El apellido del operador encargado de la entidad u organismo de control.</h6>
+                    <h6>Campo 4: Mail. El mail del operador encargado de la entidad u organismo de control.</h6>
+                    <h6>Campo 5: Nombre de la empresa. El nombre de la entidad u organismo de control.</h6>
+                    <h6>Campo 6: Indicar si es Entidad Prestadora u Organismo de Control</h6>
+                    <h5 style="color: orangered">IMPORTANTE: LOS UNICOS VALORES PERMITIDOS PARA EL CAMPO 6 SON "EntidadPrestadora" y "OrgansimoControl"</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-dJqGOyWoZWlpZlfUKF+ppU2CYLHo9JqUKys0ZJBRS6A/DL4Y7NOGgp5cnL2ysenY" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        function confirmarSubida(archivoSeleccionado) {
+            const mensaje = `¿Estás seguro que deseas subir el archivo "${archivoSeleccionado}"?`;
+            document.getElementById('mensaje-confirmacion').innerText = mensaje;
+            const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarModal'));
+            confirmarModal.show();
+        }
+
+        document.getElementById('archivo').addEventListener('change', function () {
+            const inputFile = document.getElementById('archivo');
+            const archivoSeleccionado = inputFile.files.length > 0 ? inputFile.files[0].name : 'Ningún archivo seleccionado';
+            document.getElementById('nombre-archivo').innerText = `Archivo seleccionado: ${archivoSeleccionado}`;
+        });
+
+        document.getElementById('archivoForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar que el formulario se envíe normalmente
+            const inputFile = document.getElementById('archivo');
+            const archivoSeleccionado = inputFile.files.length > 0 ? inputFile.files[0].name : 'Ningún archivo seleccionado';
+
+            // Llama a la función para confirmar antes de subir el archivo
+            confirmarSubida(archivoSeleccionado);
+        });
+
+        function subirArchivo() {
+            const inputFile = document.getElementById('archivo');
+            if (inputFile.files.length > 0) {
+                const archivo = inputFile.files[0];
+                const formData = new FormData();
+                formData.append('archivo', archivo);
+
+                // Utilizando Axios para la solicitud AJAX
+                axios.post('/portalCargaDeDatos', formData)
+                        .then(response => {
+                            if (response.status === 200) {
+                                window.location.href = '/confirmarDatosPortalCargaDeDatos';
+                            } else {
+                                alert('Hubo un error al subir el archivo.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error en la solicitud AJAX:', error);
+                            alert('Hubo un error en la solicitud AJAX.');
+                        })
+                        .finally(() => {
+                            // Cerrar el modal después de completar la solicitud
+                            const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarModal'));
+                            confirmarModal.hide();
+                        });
+            } else {
+                alert('Por favor, seleccione un archivo primero.');
+            }
+        }
+    </script>
+    </body>
+    </html>
+{{/partial}}
+{{> templates/base }}

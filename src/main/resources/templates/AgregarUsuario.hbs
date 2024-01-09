@@ -1,0 +1,100 @@
+{{#partial "contenido"}}
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <title>Agregar Usuario</title>
+    <link rel="stylesheet" href="/css/AgregarUsuario.css">
+    <div class="container">
+        <div class="add-user-box">
+            <h1>Agregar Usuario</h1>
+
+            <form id="agregarUsuarioForm">
+                <div class="input-section">
+                    <h3>Seleccione un Miembro:</h3>
+                    <select id="selector-usuario" name="miembroId">
+                        {{#each miembros}}
+                            <option value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="input-section">
+                    <h3>Comunidad:</h3>
+                    <select id="selector-comunidad" name="comunidadId">
+                        {{#each comunidades}}
+                            <option value="{{this.id}}">{{this.nombre}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="input-section">
+                    <h3>Establezca su Función:</h3>
+                    <select id="selector-funcion" name="funcion">
+                        <option value="admin">Administrador</option>
+                        <option value="miembro">Afectado</option>
+                    </select>
+                </div>
+
+                <div class="button-section">
+                    <button type="button" onclick="agregarUsuario()">Agregar</button>
+                </div>
+            </form>
+
+            <!-- Agregar el modal para confirmar agregar usuario -->
+            <div class="modal fade" id="confirmarAgregarUsuarioModal" tabindex="-1" aria-labelledby="confirmarAgregarUsuarioModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmarAgregarUsuarioModalLabel">Confirmar Agregar Usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estás seguro que deseas agregar este usuario?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cerrarModal()">Cancelar</button>
+                            <button type="button" class="btn btn-primary" onclick="confirmarAgregarUsuario()">Agregar Usuario</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function agregarUsuario() {
+            // Mostrar el modal de confirmación
+            const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarAgregarUsuarioModal'));
+            confirmarModal.show();
+        }
+
+        function cerrarModal() {
+            // Ocultar el modal directamente
+            const confirmarModal = document.getElementById('confirmarAgregarUsuarioModal');
+            const bsModal = bootstrap.Modal.getInstance(confirmarModal);
+            bsModal.hide();
+        }
+
+        function confirmarAgregarUsuario() {
+            // Recopilar datos del formulario
+            const formulario = document.getElementById('agregarUsuarioForm');
+            const formData = new FormData(formulario);
+
+            // Realizar una solicitud AJAX para enviar los datos al servidor
+            axios.post('/agregar-usuario', formData)
+                    .then(response => {
+                        // Manejar la respuesta del servidor
+                        console.log(response.data);
+
+                        // Cerrar el modal después de completar la solicitud
+                        cerrarModal();
+                    })
+                    .catch(error => {
+                        // Manejar errores
+                        console.error('Error en la solicitud AJAX:', error);
+                        // También puedes cerrar el modal en caso de error si es necesario
+                        cerrarModal();
+                    });
+        }
+    </script>
+{{/partial}}
+{{> templates/base }}

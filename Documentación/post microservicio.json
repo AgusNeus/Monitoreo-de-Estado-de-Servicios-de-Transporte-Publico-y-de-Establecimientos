@@ -1,0 +1,76 @@
+{
+    "CNF": 2,
+    "incidentes": [
+        {
+            "comunidad": "Comunidad1",
+            "quienAbrio": "Usuario1",
+            "servicio": "Servicio1",
+            "establecimiento": "Establecimiento1",
+            "entidad": "Entidad1",
+            "descripcion": "Descripción del incidente 1",
+            "fechaHoraApertura": "2023-09-07T10:00:00",
+            "fechaHoraCierre": "2023-09-07T11:00:00"
+        },
+        {
+            "comunidad": "Comunidad2",
+            "quienAbrio": "Usuario2",
+            "servicio": "Servicio2",
+            "establecimiento": "Establecimiento2",
+            "entidad": "Entidad2",
+            "descripcion": "Descripción del incidente 2",
+            "fechaHoraApertura": "2023-09-07T12:00:00",
+            "fechaHoraCierre": "2023-09-07T13:00:00"
+        },
+        {
+            "comunidad": "Comunidad3",
+            "quienAbrio": "Usuario3",
+            "servicio": "Servicio3",
+            "establecimiento": "Establecimiento3",
+            "entidad": "Entidad3",
+            "descripcion": "Descripción del incidente 3",
+            "fechaHoraApertura": "2023-09-07T14:00:00",
+            "fechaHoraCierre": "2023-09-07T18:00:00"
+        }
+    ],
+    "comunidades": [
+        {
+            "nombre": "Comunidad1",
+            "miembros": [
+                {
+                    "nombre": "julian",
+                    "rol": 1 
+                },
+                {
+                    "nombre": "ricardo",
+                    "rol": 0 
+                }
+            ]
+        },
+        {
+            "nombre": "Comunidad2",
+            "miembros": [
+                {
+                    "nombre": "julian",
+                    "rol": 1 
+                },
+                {
+                    "nombre": "ricardo",
+                    "rol": 1 
+                }
+            ]
+        },
+        {
+            "nombre": "Comunidad3",
+            "miembros": [
+                {
+                    "nombre": "julian",
+                    "rol": 0 
+                },
+                {
+                    "nombre": "ricardo",
+                    "rol": 0 
+                }
+            ]
+        }
+    ]
+}

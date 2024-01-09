@@ -1,0 +1,89 @@
+/* Definiciones generales */
+main {
+    font-family: Arial, sans-serif;
+    background-color: #577399;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+/* Estilos para la caja de carga de archivos */
+.upload-box {
+    background-color: #BDD5EA;
+    padding: 40px; /* Ajusta el espacio interno según tus preferencias */
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px; /* Ajusta el ancho máximo según tus preferencias */
+    width: 100%; /* Haz que el ancho sea el 100% */
+    margin: 20px auto; /* Ajusta el margen según tus preferencias */
+}
+
+.upload-box h2 {
+    margin-top: 15px;
+    color: #495867;
+}
+
+.upload-box h5 {
+    margin-top: 15px;
+    color: #495867;
+}
+
+.input-box {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 0px solid #6785ad;
+    border-radius: 90px;
+    outline: none;
+    max-width: 400px;
+}
+
+button,
+button.subir-button {
+    background-color: #F7F7FF;
+    color: #495867;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button:hover,
+button.subir-button:hover {
+    background-color: #E1EAF8;
+}
+
+button.subir-button {
+    background-color: #3366CC;
+    color: #fff;
+}
+
+button.subir-button:hover {
+    background-color: #254C99;
+}
+
+p a {
+    text-decoration: none;
+    color: #495867;
+}
+
+p a:hover {
+    text-decoration: underline;
+}

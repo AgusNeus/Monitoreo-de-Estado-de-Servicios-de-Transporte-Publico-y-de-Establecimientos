@@ -1,0 +1,159 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block content %}
+
+    <title>Incidentes</title>
+    <link href="{% static '/mainApp/css/incidentes.css' %}" rel="stylesheet">
+
+  
+    <!-- Contenido principal de tu página -->
+    <div class="incidents-box" >
+        <h1 class="text-center">Incidentes</h1>
+        <!-- Botón "Seleccionar Todos" arriba de la tabla -->
+
+        <div class="filtro-box">
+
+            <select id="filtro">
+                <option value="" disabled selected>Filtrar por...</option>
+                <option value="nombre">Nombre</option>
+                <option value="servicio">Servicio</option>
+                <option value="establecimiento">Establecimiento</option>
+                <option value="comunidad">Comunidad</option>
+                <option value="abierto">Abierto</option>
+                <option value="cerrado">Cerrado</option>
+            </select>
+            <input type="text" id="busqueda" placeholder="Buscar..." />
+            <button id="buscar">Buscar</button>
+        </div>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Servicio</th>
+                    <th>Establecimiento</th>
+                    <th>Comunidad</th>
+                    <th>Cerrar Incidente</th>
+                </tr>
+                </thead>
+                <tbody id="tabla-incidentes">
+
+                    {% for incidente in incidentes %}
+                    <tr data-id="{{ incidente.id }}">
+                        <td><a href="/incidentes/{{ incidente.token }}">{{ incidente.nombre }}</a></td>
+                        <td>{{ incidente.servicio.nombre }}</td>
+                        <td>{{ incidente.establecimiento.nombre}}</td>
+                        <td>{{ incidente.comunidad.nombre }}</td>
+                        <td>
+                            {% if incidente.fechaHoraCierre is None %}
+                                <span>Cerrado</span>
+                            {% else %}
+                                <input type="checkbox" data-id="{{ incidente.id }}">
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+
+                </tbody>
+            </table>
+        </div>
+            <button id="cerrarSeleccionados">Cerrar Seleccionados</button>
+    </div>
+
+    <!-- Scripts de Bootstrap y otros recursos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar clic en el botón "Cerrar Seleccionados"
+            document.getElementById('cerrarSeleccionados').addEventListener('click', function() {
+                const selectedIncidents = [];
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+
+                checkboxes.forEach(function(checkbox) {
+                    const incidentId = checkbox.getAttribute('data-id');
+                    selectedIncidents.push(incidentId);
+                });
+
+
+                if (selectedIncidents.length > 0) {
+                    // Enviar una solicitud al servidor para cambiar el estado de los incidentes a "Cerrado"
+                    // Ejemplo con fetch:
+                    fetch('/cerrar-incidentes', {
+                        method: 'POST',
+                        body: JSON.stringify(selectedIncidents),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Actualizar el estado de las filas en la tabla a "Cerrado"
+                                    selectedIncidents.forEach(incidentId => {
+                                        const row = document.querySelector(`tr[data-id="${incidentId}"`);
+                                        if (row) {
+                                            const checkbox = row.querySelector('input[type="checkbox"]');
+                                            if (!row.querySelector('span')) {
+                                                const span = document.createElement('span');
+                                                span.textContent = 'Cerrado';
+                                                row.querySelector('td:last-child').appendChild(span);
+                                                checkbox.remove();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                }
+            });
+            // Manejar cambio en el elemento <select> con ID "filtro"
+            const filtroSelect = document.getElementById('filtro');
+            const busquedaInput = document.getElementById('busqueda');
+
+            filtroSelect.addEventListener('change', function() {
+                filtrarIncidentes();
+            });
+
+            busquedaInput.addEventListener('input', function() {
+                filtrarIncidentes();
+            });
+
+            function filtrarIncidentes() {
+                const filtroValor = filtroSelect.value;
+                const busquedaValor = busquedaInput.value.toLowerCase();
+
+                document.querySelectorAll('tbody tr').forEach(function(row) {
+                    const celda = row.querySelector(`td:nth-child(${getIndiceColumna(filtroValor)})`);
+                    if (filtroValor === '' || celda.textContent.toLowerCase().includes(busquedaValor)) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+
+            function getIndiceColumna(filtro) {
+                switch (filtro) {
+                    case 'nombre':
+                        return 1;
+                    case 'servicio':
+                        return 2;
+                    case 'establecimiento':
+                        return 3;
+                    case 'comunidad':
+                        return 4;
+                    case 'abierto':
+                        return 5;
+                    case 'cerrado':
+                        return 5;
+                    default:
+                        return 0;
+                }
+            }
+        });
+
+
+
+
+    </script>
+{% endblock %}
+

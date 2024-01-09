@@ -1,0 +1,139 @@
+{{#partial "contenido"}}
+    <title>Admin Usuarios</title>
+    <link rel="stylesheet" type="text/css" href="/css/filtroUsuarios.css">
+    <div class="container">
+        <h1 class="text-center">Usuarios</h1>
+        <div class="filtro-box">
+            <select id="filtro">
+                <option value="" disabled selected>Filtrar por...</option>
+                <option value="nombre">Nombre</option>
+                <option value="apellido">Apellido</option>
+                <option value="rol">Rol</option>
+                <option value="email">Email</option>
+                <option value="validado">Autorizacion</option>
+            </select>
+            <input type="text" id="busqueda" placeholder="Buscar..." />
+        </div>
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Rol Actual</th>
+                    <th>Nuevo Rol</th>
+                    <th>Permiso Actual</th>
+                    <th>Autorizacion</th>
+                </tr>
+                </thead>
+                <tbody id="tabla-usuarios">
+                {{#each usuarios}}
+                    <tr data-id="{{this.id}}">
+                        <td>{{this.nombre}}</td>
+                        <td>{{this.apellido}}</td>
+                        <td>{{this.email}}</td>
+                        <td>
+                            <script>
+                                var rolUsuario = "{{this.rolUsuario}}";
+                                var rolesFormateados = {
+                                    'MIEMBRO': 'Miembro',
+                                    'ADMINISTRADOR_PLATAFORMA': 'Administrador de la plataforma',
+                                    'ORGANISMO_DE_CONTROL': 'Organismo de Control',
+                                    'ENTIDAD_PRESTADORA': 'Entidad Prestadora',
+                                    // Agrega más roles según sea necesario
+                                };
+                                var rolFormateado = rolesFormateados[rolUsuario];
+                                document.write(rolFormateado);
+                            </script>
+                        </td>
+                        <td>
+                            <select class="rol-select">
+                                <option value="" >Selecciona un rol</option>
+                                <option value="0">Miembro</option>
+                                <option value="1">Organismo de Control</option>
+                                <option value="2">Entidad Prestadora</option>
+                                <option value="3">Administrador de Plataforma</option>
+                            </select>
+                        </td>
+                        <td>
+                            {{#if this.validado}}
+                                Autorizado
+                            {{else}}
+                                No Autorizado
+                            {{/if}}
+                        </td>
+                        <td>
+                            <select class="validado-select">
+                                <option value="">Selecciona un permiso</option>
+                                <option value="true" {{#if this.validado}}selected{{/if}}>Autorizado</option>
+                                <option value="false" {{#unless this.validado}}selected{{/unless}}>No Autorizado</option>
+                            </select>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <button id="agregarUsuario">Validar Usuarios</button>
+    </div>
+    <div class="modal fade" id="confirmarValidarUsuariosModal" tabindex="-1" role="dialog" aria-labelledby="confirmarValidarUsuariosModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmarValidarUsuariosModalLabel">Confirmar Validar Usuarios</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro que deseas validar estos usuarios?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cerrarValidarUsuariosModal()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmarValidarUsuarios()">Validar Usuarios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarValidarUsuariosModal() {
+            $('#confirmarValidarUsuariosModal').modal('show');
+        }
+
+        function cerrarValidarUsuariosModal() {
+            $('#confirmarValidarUsuariosModal').modal('hide');
+        }
+
+        function confirmarValidarUsuarios() {
+            // Aquí deberías colocar tu lógica para confirmar la validación de usuarios
+            // Por ejemplo, hacer una solicitud AJAX al servidor para realizar la validación
+            // Luego, cierra el modal después de completar la lógica
+
+            // Simulación de lógica de confirmación (puedes reemplazar esto con tu propia lógica)
+            const confirmacion = confirm("¿Deseas confirmar la validación de usuarios?");
+            if (confirmacion) {
+                console.log('Usuarios validados correctamente.');
+                // Aquí puedes colocar la lógica para validar los usuarios (llamada AJAX, etc.)
+                // ...
+                // Cierra el modal después de completar la lógica
+                cerrarValidarUsuariosModal();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('agregarUsuario').addEventListener('click', function () {
+                // Lógica para validar usuarios y luego mostrar el modal
+                // Ejemplo: ValidarUsuarios(); mostrarValidarUsuariosModal();
+
+                // Ejemplo sin lógica de validación:
+                mostrarValidarUsuariosModal();
+            });
+
+            // Resto de tu código...
+        });
+    </script>
+    <script src="/js/filtroUsuarios.js"></script>
+{{/partial}}
+{{> templates/base }}

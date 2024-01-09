@@ -1,0 +1,120 @@
+main {
+    font-family: Arial, sans-serif;
+    background-color: #577399;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita el desplazamiento vertical */
+    height: 100%;
+}
+input[type='text'],
+textarea {
+    width: calc(100% - 20px);
+}
+
+select {
+    width: 100%;
+}
+
+/* Estilo común para los placeholders de los campos de texto y textarea */
+::placeholder {
+    font-family: Arial, sans-serif;
+    font-size: 16px; /* Mismo tamaño de fuente para placeholders */
+    letter-spacing: 0.5px;
+    /* Otros estilos, si es necesario */
+}
+
+textarea,
+select,
+input[type="text"] {
+    /*border: 1px solid #577399;*/
+    outline: none;
+    padding: 10px;
+    font-size: 16px; /* Mismo tamaño de fuente para campos de texto y textarea */
+    max-width: 600px;
+    resize: none;
+    border-radius: 20px;
+    border-color: transparent;
+}
+
+.select{
+    border-color: transparent;
+}
+
+.container {
+    text-align: center;
+    width: 500px;
+}
+
+.report-incident-box {
+    background-color: #BDD5EA;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin:0 auto;
+}
+
+.report-incident-box h2 {
+    color: #495867;
+
+}
+
+.input-section {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+    padding: 10px;
+
+    max-width: 400px;
+}
+
+.input-section label {
+    font-weight: bold;
+    text-align: left;
+}
+
+select[multiple] {
+    height: auto;
+
+}
+
+.button-section button {
+    background-color: #3A7BBE;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-section button:hover {
+    background-color: #295d9f;
+}
+
+.text-box {
+    width: 291px;
+    height: 39px;
+    flex-shrink: 0;
+    border-radius: 25px;
+    background: #F7F7FF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.chart-container{
+    width: 5000px;
+    height: 5000px;
+
+}
+
+.black-number {
+    color: black;
+}

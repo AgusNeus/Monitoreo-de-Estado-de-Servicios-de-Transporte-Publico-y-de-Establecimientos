@@ -1,0 +1,29 @@
+{{#partial "contenido"}}
+    <link rel="stylesheet" href="/css/InicioSesion.css">
+    <title>Inicio de Sesión</title>
+    <div class="container">
+        <div class="login-box">
+            <h2>Iniciar Sesión</h2>
+
+            <!-- Verificar y mostrar el mensaje de error -->
+            {{#if error_message}}
+                <p style="color: red;">{{error_message}}</p>
+            {{/if}}
+
+            <form action="/inicio" method="POST">
+                <div class="input-box">
+                    <label for="usuario"></label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Escribe tu usuario" required>
+                </div>
+                <div class="input-box">
+                    <label for="contrasena"></label>
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Escribe tu contraseña" required>
+                </div>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <p><a href="/olvidar-contrasenia">¿Olvidaste tu contraseña?</a></p>
+            <p><a href="/crear-cuenta">Registrarse</a></p>
+        </div>
+    </div>
+{{/partial}}
+{{> templates/baseSinNavBar }}

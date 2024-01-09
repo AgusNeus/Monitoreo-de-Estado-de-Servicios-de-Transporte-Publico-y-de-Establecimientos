@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #577399;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    margin: 0;
+}
+
+/* Estilos para el contenedor principal */
+.container {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 56px;
+}
+
+/* Estilos para el cuadro de login */
+.login-box {
+    background-color: #BDD5EA;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Estilos para el título */
+.login-box .title {
+    color: #495867;
+    text-align: center; /* Alinea el título al centro */
+}
+
+/* Estilos para las casillas de entrada de texto */
+.input-box {
+    margin-bottom: 20px;
+    text-align: left; /* Alinea los títulos a la izquierda */
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #6785ad;
+    border-radius: 15px;
+    outline: none;
+    max-width: 400px;
+}
+
+/* Estilos para el botón */
+button {
+    background-color: #F7F7FF;
+    color: #495867;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #577399;
+}
+
+/* Estilos para los enlaces de texto */
+p a {
+    text-decoration: none;
+    color: #495867;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el mensaje de error */
+.error-message {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
